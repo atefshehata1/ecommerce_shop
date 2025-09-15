@@ -11,6 +11,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { product } from '../../../types/products.type'
 import AddCartBtn from './AddCartBtn'
+import AddWishListIcon from './AddWishListIcon'
 
 export default function ProductCard({product}:{product:product}) {
     const {imageCover,title, ratingsAverage,  price ,category:{name}, _id} = product
@@ -35,7 +36,10 @@ export default function ProductCard({product}:{product:product}) {
 
     </CardFooter>
         </Link>
+        <div className='flex justify-center items-center gap-2'>
       <AddCartBtn  id={_id} />
+      <AddWishListIcon id={_id} />
+        </div>
 
     </Card>    
     </>
