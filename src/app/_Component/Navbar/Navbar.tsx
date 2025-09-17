@@ -7,10 +7,13 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+
 import Image from "next/image"
 import { signOut, useSession } from "next-auth/react"
-import { useContext } from "react"
+import React, { useContext } from "react"
 import { CountContext } from "../../../CountProvider"
+import { LogOutIcon, ShoppingCartIcon, UserIcon } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "../../../../image/components/ui/dropdown-menu"
 
 export default function Navbar() {
   const { data, status  } = useSession()
@@ -52,7 +55,7 @@ export default function Navbar() {
             asChild
             className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent`}
           >
-            <Link href={"#"}>
+            <Link href={"/"}>
             <Image
             src="/images/freshcart-logo.svg"
             alt="Logo"
@@ -91,85 +94,80 @@ export default function Navbar() {
     </NavigationMenuItem>
   )
 ))}
-          {/* cart static */}
-        { 
-           status === "authenticated" &&   <NavigationMenuItem>
-          <NavigationMenuLink
-            asChild
-            className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent`}
-          >
-            <Link href='/cart' className="relative">Cart   
-            <span className="absolute -top-1 -right-1 bg-black text-white w-5 h-5 rounded-full flex justify-center items-center">
-            {count}
-            </span>
-            </Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-
-        }
-
       </NavigationMenuList>
 
+      {/* User icon  &  Cart  */}
+      <div className="flex items-center gap-1 mr-10">
+  {/* icon user */}
+  <NavigationMenuList className="list-none">
+    <DropdownMenu>
+      <DropdownMenuTrigger className="outline-0 rounded-full bg-gray-200 p-2 hover:bg-gray-300 transition">
+        <UserIcon className="w-5 h-5 text-gray-700" />
+      </DropdownMenuTrigger>
 
-
-
-
-
-
-      {/* Auth Section */}
-      <NavigationMenuList>
-        {status === "loading" && (
-          <>
-            {/* Skeleton Loading */}
-            <NavigationMenuItem>
-              <div className="w-24 h-6 bg-gray-800 rounded-md animate-pulse" />
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <div className="w-20 h-6 bg-gray-500 rounded-md animate-pulse" />
-            </NavigationMenuItem>
-          </>
-        )}
-
+      <DropdownMenuContent>
+        {/* name & signOut */}
         {status === "authenticated" && (
           <>
-            {/* name */}
-            <NavigationMenuItem className="last:list-none">
-              <NavigationMenuLink
-                asChild
-                className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent`}
-              >
-                <span>hello {data?.user?.name}</span>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+            <DropdownMenuLabel>
+              Hello {data?.user?.name}
+            </DropdownMenuLabel>
+
+            <DropdownMenuSeparator />
 
             {/* sign out */}
-            <NavigationMenuItem className="last:list-none">
-              <NavigationMenuLink
-                asChild
-                className={`${navigationMenuTriggerStyle()}bg-transparent hover:bg-transparent cursor-pointer`}
-              >
-                <span onClick={logOut}>sign out</span>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+            <DropdownMenuItem
+              onClick={logOut}
+              className="cursor-pointer text-red-600 focus:text-red-700 border-0 flex items-center gap-2"
+            >
+              <LogOutIcon className="w-4 h-4" />
+              Sign out
+            </DropdownMenuItem>
           </>
         )}
 
+        {/* Menu Auth */}
         {status === "unauthenticated" && (
           <>
-            {/* Auth Items */}
-            {menuAuthItems.map((item) => (
-              <NavigationMenuItem key={item.path}>
-                <NavigationMenuLink
-                  asChild
-                  className={`${navigationMenuTriggerStyle()}bg-transparent hover:bg-transparent`}
-                >
-                  <Link href={item.path}>{item.content}</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+            {menuAuthItems.map((item, index) => (
+              <React.Fragment key={item.path}>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={item.path}
+                    className="w-full block px-2 py-1 hover:bg-accent rounded-sm"
+                  >
+                    {item.content}
+                  </Link>
+                </DropdownMenuItem>
+                {index < menuAuthItems.length - 1 && <DropdownMenuSeparator />}
+              </React.Fragment>
             ))}
           </>
         )}
-      </NavigationMenuList>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  </NavigationMenuList>
+
+  {/* cart static */}
+  {status === "authenticated" && (
+    <NavigationMenuItem className="list-none">
+      <NavigationMenuLink
+        asChild
+        className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent`}
+      >
+        <Link href="/cart" className="relative">
+          <ShoppingCartIcon className="size-9" />
+          <span className="absolute -top-1 -right-0 bg-black text-white w-5 h-5 rounded-full flex justify-center items-center">
+            {count}
+          </span>
+        </Link>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+  )}
+      </div>
+
+
+
     </NavigationMenu>
   )
 }

@@ -21,8 +21,8 @@ export default function OrdersPage({ cartId }: { cartId: string }) {
           getUserOrders()
         ])
 
-        setAllOrders(allData.data || [])   // ✅ كل الأوردرز
-         setUserOrders(userData || [])      // ✅ أوردرز اليوزر
+        setAllOrders(allData.data || [])   // ✅ All orders
+         setUserOrders(userData || [])      // ✅ User Orders
 
         console.log(allData);
         console.log(userData);
@@ -101,13 +101,13 @@ export default function OrdersPage({ cartId }: { cartId: string }) {
         <Button onClick={handleVisaOrder} >Visa</Button>
       </div>
 
-      <h3 className="text-lg font-semibold mt-6 mb-2">User Orders</h3>
+      <h3 className="text-lg font-semibold text-center mt-6 mb-2">User Orders</h3>
       {userOrders.length === 0 ? (
         <p className="text-center mb-4">No user orders found.</p>
       ) : (
-        <ul className="mb-6">
+        <ul className="mb-6 flex justify-center items-center   gap-3 flex-wrap ">
           {userOrders.map(order => (
-            <li key={order._id} className="border p-2 my-2 rounded">
+            <li key={order._id} className="border p-2 my-2 w-1/3 flex justify-center items-center  gap-3 rounded">
               <p><strong>Order ID:</strong> {order._id}</p>
               <p><strong>Total:</strong> {order.totalOrderPrice} EGP</p>
               <p><strong>Payment:</strong> {order.paymentMethodType}</p>
@@ -117,11 +117,11 @@ export default function OrdersPage({ cartId }: { cartId: string }) {
         </ul>
       )}
 
-      <h3 className="text-lg font-semibold mt-6 mb-2">All Orders</h3>
+      <h3 className="text-lg font-semibold mt-10 text-center  mb-2">All Orders</h3>
       {allOrders.length === 0 ? (
         <p className="text-center mb-4">No orders found.</p>
       ) : (
-        <ul>
+        <ul className=" flex justify-center items-center  gap-3 flex-wrap">
           {allOrders.map(order => (
             <li key={order._id} className="border p-2 my-2 rounded">
               <p><strong>Order ID:</strong> {order._id}</p>

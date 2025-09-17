@@ -11,6 +11,7 @@ import CountProvider from "../CountProvider";
 
 
 
+ 
 const Encode_SansFont = Encode_Sans({
   subsets:["latin"],
   weight:["100",'500','900']
@@ -35,7 +36,7 @@ export default function RootLayout({
       <CountProvider>
 
         <Navbar/>
-        <main  className=" p-4">
+        <main  className= ' italic  p-4'>
         {children}
         </main>
         <Toaster/>
