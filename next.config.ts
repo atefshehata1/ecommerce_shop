@@ -7,19 +7,23 @@ images: {
     {
       protocol: "https",
       hostname: "ecommerce.routemisr.com",
-      pathname: "/**",
-      // pathname: "/Route-Academy-categories/**"
+     
+      pathname: "/Route-Academy-categories/**"
     },
-    // {
-    //   protocol: "https",
-    //   hostname: "ecommerce.routemisr.com",
-    //   pathname: "/Route-Academy-products/**"
-    // },
-    // {
-    //   protocol: "https",
-    //   hostname: "ecommerce.routemisr.com",
-    //   pathname: "/Route-Academy-brands/**"
-    // }
+    {
+      protocol: "https",
+      hostname: "ecommerce.routemisr.com",
+      pathname: "/Route-Academy-products/**"
+    },
+    {
+      protocol: "https",
+      hostname: "ecommerce.routemisr.com",
+      pathname: "/Route-Academy-brands/**"
+    },
+     {
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
+      },
   ]
 }
 

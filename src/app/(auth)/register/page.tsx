@@ -71,12 +71,12 @@ export default function Register() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-purple-900 to-pink-600">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white/90 rounded-2xl shadow-2xl overflow-hidden w-[420px] p-8">
         
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-center text-pink-700 mb-6">WELCOME</h2>
+        <h2 className="text-2xl font-bold text-center mb-6">WELCOME</h2>
 
         <Form {...Register_Form}>
           <form className="space-y-4" onSubmit={Register_Form.handleSubmit(handleRegister)}>
@@ -87,7 +87,7 @@ export default function Register() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center bg-gradient-to-r from-pink-400 to-pink-600 text-white rounded-full px-3">
+                  <div className="flex items-center  text-white rounded-full px-3">
                     <User className="w-5 h-5 mr-2" />
                     <FormControl>
                       <Input
@@ -108,7 +108,7 @@ export default function Register() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center bg-gradient-to-r from-pink-400 to-pink-600 text-white rounded-full px-3">
+                  <div className="flex items-center text-white rounded-full px-3">
                     <User className="w-5 h-5 mr-2" />
                     <FormControl>
                       <Input
@@ -129,7 +129,7 @@ export default function Register() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center bg-gradient-to-r from-pink-400 to-pink-600 text-white rounded-full px-3">
+                  <div className="flex items-center  text-white rounded-full px-3">
                     <Lock className="w-5 h-5 mr-2" />
                     <FormControl>
                       <Input
@@ -151,7 +151,7 @@ export default function Register() {
               name="rePassword"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center bg-gradient-to-r from-pink-400 to-pink-600 text-white rounded-full px-3">
+                  <div className="flex items-center  text-white rounded-full px-3">
                     <Lock className="w-5 h-5 mr-2" />
                     <FormControl>
                       <Input
@@ -173,7 +173,7 @@ export default function Register() {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center bg-gradient-to-r from-pink-400 to-pink-600 text-white rounded-full px-3">
+                  <div className="flex items-center  text-white rounded-full px-3">
                     <User className="w-5 h-5 mr-2" />
                     <FormControl>
                       <Input
@@ -191,7 +191,7 @@ export default function Register() {
             {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full bg-purple-800 hover:bg-purple-900 text-white rounded-full py-2 mt-4 cursor-pointer"
+              className="w-full text-white rounded-full py-2 mt-4 cursor-pointer"
               disabled={loading}
             >
               {loading ? "Registering..." : "Register"}

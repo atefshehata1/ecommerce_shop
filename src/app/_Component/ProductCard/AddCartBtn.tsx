@@ -4,6 +4,8 @@ import React, { useContext } from 'react'
 import { AddCartToBtn } from '../../../CartAction/CartAction'
 import { toast } from 'sonner'
 import { CountContext } from '../../../CountProvider'
+import { ShoppingCartIcon } from 'lucide-react'
+
 
 export default function AddCartBtn({ id }: { id: string }) {
   const context = useContext(CountContext)
@@ -48,6 +50,7 @@ export default function AddCartBtn({ id }: { id: string }) {
       className="rounded-2xl w-3/4 ml-6  mt-3 cursor-pointer"
     >
       Add to cart
+      <ShoppingCartIcon/>
     </Button>
   )
 }

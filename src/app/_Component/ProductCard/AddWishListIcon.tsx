@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from "sonner"
 import { addWishlist } from "../../../WishlistAction/WishlistAction"
 import getUserToken from "../../../getUserToken"
+import { DataWish } from "../../../types/WishList"
 
 interface Props {
   id: string
@@ -11,7 +12,7 @@ interface Props {
 export default function AddWishListIcon({ id }: Props) {
   const [added, setAdded] = useState(false)
 
-  // ✅ أول ما الكومبوننت يشتغل نشيك هل المنتج موجود في wishlist
+  // ✅ We check first if it is in the wishlist.
   useEffect(() => {
     const checkIfInWishlist = async () => {
       try {
@@ -25,7 +26,7 @@ export default function AddWishListIcon({ id }: Props) {
         const data = await res.json()
 
         if (data.status === "success") {
-          const exists = data.data.some((item: any) => item._id === id)
+          const exists = data.data.some((item: DataWish) => item._id === id)
           setAdded(exists)
         }
       } catch (err) {
@@ -36,11 +37,11 @@ export default function AddWishListIcon({ id }: Props) {
     checkIfInWishlist()
   }, [id])
 
-  // ✅ إضافة المنتج للـ wishlist
+  //  Add wishlist
   async function handleAdd() {
     if (added) {
-      // لو القلب مليان متبعتش request
-      toast.info("المنتج موجود بالفعل في Wishlist", { position: "top-center" })
+      //  heart is complete request
+      toast.info("The product is already in the WishList.", { position: "top-center" })
       return
     }
 
@@ -62,9 +63,9 @@ export default function AddWishListIcon({ id }: Props) {
   return (
     <Heart
       onClick={handleAdd}
-      className={`h-7 w-7 cursor-pointer transition-colors hover:text-yellow-600
+      className={`h-7 w-7 cursor-pointer  transition-colors 
         ${added ? "text-yellow-600" : "text-black"}`}
-      fill={added ? "currentColor" : "none"}
+      fill={added ? "currentColor" : "text-black"}
     />
   )
 }

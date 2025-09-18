@@ -87,7 +87,7 @@ const handleCashOrder = async (e: React.FormEvent) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Check Payment</Button>
+        <Button variant="outline" className=" cursor-pointer">Check Payment</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px] space-y-2">
@@ -134,11 +134,12 @@ const handleCashOrder = async (e: React.FormEvent) => {
               <Button type="button" variant="outline">Cancel</Button>
             </DialogClose>
 
-            <Button type="submit" disabled={loading}>
+            <Button className=" cursor-pointer" type="submit" disabled={loading}>
               {loading ? "Processing..." : "Cash"}
             </Button>
 
             <Button
+            className=" cursor-pointer"
             type="button"
             onClick={handleVisaOrder}
             disabled={loading}

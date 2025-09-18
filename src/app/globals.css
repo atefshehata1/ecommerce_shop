@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 :root
@@ -193,4 +194,41 @@ a , a:hover{
 @keyframes rotate {
   0% {  transform: rotate(0)}
   100% { transform: rotate(360deg)}
+}
+
+
+
+
+
+/* Animation Home Page */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 2s ease-out forwards;
+}
+
+
+
+/* Animation Images */
+
+@keyframes move-sideways {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(15px);
+  }
+}
+
+.animate-sideways {
+  animation: move-sideways 3s ease-in-out infinite;
 }

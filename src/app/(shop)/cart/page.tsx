@@ -3,14 +3,13 @@ import Image from 'next/image'
 import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { ClearProducts, getCartData, RemoveProductToTrash, UpdateQuantity } from '../../../CartAction/CartAction'
 import { cart, CartData } from '../../../types/cartData'
-import Loading from '@/app/loading'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { CountContext } from '../../../CountProvider'
 import CheckOut from '@/app/_Component/CheckOut/CheckOut'
+import { Skeleton } from '@/components/ui/skeleton'
 
-export default function Cart() {  
-  // ✅ Handle context safely
+export default function CartPage() {
   const context = useContext(CountContext)
   if (!context) throw new Error("CountContext must be used within a CountProvider")
   const { setCount } = context
@@ -21,17 +20,14 @@ export default function Cart() {
   const [CountDisabled, setCountDisabled] = useState(false)
   const [currentId, setCurrentId] = useState<string | null>(null)
 
-  // ✅ Wrap in useCallback to avoid useEffect warning
   const gatAllCartData = useCallback(async () => {
     try {
       setCartLoading(true)
       const data: CartData = await getCartData()
       setCart(data.data)
 
-      // تحديث العدد في الـ Context
       const sum = data.data.products.reduce((total, item) => total + item.count, 0)
       setCount(sum)
-
       setCartLoading(false)
     } catch (error) {
       console.error("Error fetching cart:", error)
@@ -80,99 +76,113 @@ export default function Cart() {
   }
 
   return (
-    <>
-      <h1 className="text-2xl">Shop cart</h1>
+    <div className="container mx-auto px-4 py-10">
+      <h1 className="text-3xl font-bold mb-6 text-center">🛒 Shopping Cart</h1>
 
       {cartLoading ? (
-        <Loading />
+         <div className="space-y-4">
+          <Skeleton className="w-full h-8 rounded-lg" />
+          <Skeleton className="w-full h-8 rounded-lg" />
+          <Skeleton className="w-full h-8 rounded-lg" />
+        </div>
       ) : (
         <>
           {cart?.products.length ? (
-            <div>
-              <h2>Total Cart price : {cart?.totalCartPrice}</h2>
-              <Button onClick={clearProducts} className="float-right cursor-pointer">
-                Clear Data
-              </Button>
-              <div className="clear-both"></div>
-              <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 dark">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th scope="col" className="px-16 py-3"><span className="sr-only">Image</span></th>
-                      <th scope="col" className="px-6 py-3">Product</th>
-                      <th scope="col" className="px-6 py-3">Qty</th>
-                      <th scope="col" className="px-6 py-3">Price</th>
-                      <th scope="col" className="px-6 py-3">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cart.products.map((item) => (
-                      <tr key={item._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="p-4">
-                          <Image src={item.product.imageCover} alt={item.product.title} width={80} height={80} className="w-16 md:w-32 max-w-full max-h-full" />
-                        </td>
-                        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">{item.product.title}</td>
-
-                        <td>
-                          <div className="flex items-center">
-                            <Button
-                              disabled={CountDisabled}
-                              onClick={() => updateQuantity(item.count - 1, item.product._id)}
-                              className="inline-flex items-center justify-center p-3 h-6 w-6 text-sm font-medium text-gray-500 bg-white border rounded-full cursor-pointer"
-                              type="button"
-                            >
-                              {item.count === 1 ? <i className='fa-solid fa-trash'></i> :
-                                <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M1 1h16" />
-                                </svg>}
-                            </Button>
-
-                            {LoadingCount && currentId === item.product._id ? <i className='fa-solid fa-spinner fa-spin'></i> :
-                              <span className="px-7 py-4">{item.count}</span>}
-
-                            <Button
-                              disabled={CountDisabled}
-                              onClick={() => updateQuantity(item.count + 1, item.product._id)}
-                              className="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border rounded-full cursor-pointer"
-                              type="button"
-                            >
-                              <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 1v16M1 9h16" />
-                              </svg>
-                            </Button>
-                          </div>
-                        </td>
-
-                        <td className="px-6 py-4">${item.price}</td>
-                        <td className="px-6 py-4">
-                          <Button
-                            disabled={CountDisabled}
-                            onClick={() => removeProduct(item.product._id)}
-                            className="cursor-pointer text-red-600 hover:underline"
-                          >
-                            <i className="fa-solid fa-trash fa-xl"></i>
-                          </Button>
-                        </td>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Table left */}
+              <div className="lg:col-span-2 bg-white shadow-md rounded-lg p-6">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left border border-gray-200 rounded-lg">
+                    <thead className="bg-gray-100 text-gray-700">
+                      <tr>
+                        <th className="px-4 py-3">Image</th>
+                        <th className="px-4 py-3">Product</th>
+                        <th className="px-4 py-3">Qty</th>
+                        <th className="px-4 py-3">Price</th>
+                        <th className="px-4 py-3">Action</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {cart.products.map((item) => (
+                        <tr key={item._id} className="border-t">
+                          <td className="px-4 py-3">
+                            <Image
+                              src={item.product.imageCover}
+                              alt={item.product.title}
+                              width={70}
+                              height={70}
+                              className="rounded-md object-cover"
+                            />
+                          </td>
+                          <td className="px-4 py-3 font-semibold">{item.product.title}</td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-2">
+                              <Button
+                                disabled={CountDisabled}
+                                onClick={() => updateQuantity(item.count - 1, item.product._id)}
+                                className="p-2 h-8 w-8 flex items-center justify-center cursor-pointer"
+                              >
+                                {item.count === 1 ? <i className="fa-solid fa-trash"></i> : "-"}
+                              </Button>
+
+                              {LoadingCount && currentId === item.product._id ? (
+                                <i className="fa-solid fa-spinner fa-spin"></i>
+                              ) : (
+                                <span>{item.count}</span>
+                              )}
+
+                              <Button
+                                disabled={CountDisabled}
+                                onClick={() => updateQuantity(item.count + 1, item.product._id)}
+                                className="p-2 h-8 w-8 flex items-center justify-center  cursor-pointer"
+                              >
+                                +
+                              </Button>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3">${item.price}</td>
+                          <td className="px-4 py-3">
+                            <Button
+                              disabled={CountDisabled}
+                              onClick={() => removeProduct(item.product._id)}
+                              className="text-red-600  cursor-pointer"
+                            >
+                              <i className="fa-solid fa-trash"></i>
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
-              <div className='my-5 text-center cursor-pointer'>
-                {cart && <CheckOut cartId={cart._id} onOrderComplete={gatAllCartData} />}
+              {/* Table right */}
+              <div className="bg-gray-50 shadow-md rounded-lg p-6 flex flex-col gap-6 self-start sticky top-20">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+                  <p className="text-lg mb-2">
+                    Total Price: <span className="font-bold">${cart?.totalCartPrice}</span>
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <Button onClick={clearProducts} className="bg-red-500 hover:bg-red-600 text-white  cursor-pointer">
+                    Clear Cart
+                  </Button>
+                  {cart && <CheckOut cartId={cart._id} onOrderComplete={gatAllCartData} />}
+                </div>
               </div>
             </div>
           ) : (
-            <div className="flex justify-center mt-15 items-center p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
-              <svg className="shrink-0 inline w-4 h-4 me-3" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-              </svg>
-              <div><span className="font-medium">Info !</span> Your cart is currently empty</div>
+            // empty shop 
+            <div className="flex justify-center mt-15 items-center p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50">
+              <i className="fa-solid fa-circle-info mr-2"></i>
+              <span>Your cart is currently empty</span>
             </div>
           )}
         </>
       )}
-    </>
+    </div>
   )
 }

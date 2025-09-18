@@ -58,9 +58,9 @@ export default function ResetCode() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-purple-900 to-pink-600">
+    <div className="flex min-h-screen items-center justify-center -translate-y-20">
       <div className="bg-white/95 w-full max-w-md p-8 rounded-2xl shadow-2xl">
-        <h2 className="text-2xl font-bold text-center mb-6 text-purple-800">
+        <h2 className="text-2xl font-bold text-center mb-6">
           Enter Reset Code 🔐
         </h2>
 
@@ -102,7 +102,7 @@ export default function ResetCode() {
             {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full cursor-pointer bg-purple-800 hover:bg-purple-900 text-white font-semibold py-2 rounded-full shadow-lg transition"
+              className="w-full cursor-pointer text-white font-semibold py-2 rounded-full shadow-lg transition"
               disabled={loading}
             >
               {loading ? "Loading..." : "Verify Code"}

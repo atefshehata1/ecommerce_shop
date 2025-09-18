@@ -17,6 +17,7 @@ import { DataWish, Wishlist } from "../../../types/WishList"
 import { removeWishlist } from "../../../WishlistAction/WishlistAction"
 import { Button } from "@/components/ui/button"
 import { Heart } from "lucide-react"
+import HeroStars from "@/app/_Component/ProductCard/StarsIcon"
 
 
 
@@ -102,7 +103,7 @@ export default function WishlistPage() {
             </CardContent>
               <CardFooter className="flex items-center justify-between">
               <p className="text-sm text-gray-500">
-                التقييم: ⭐ {item.ratingsAverage}
+                التقييم: <HeroStars/> {item.ratingsAverage}
               </p>
               <Button
                 size="sm"

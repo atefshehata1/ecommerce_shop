@@ -4,6 +4,7 @@ import AddCartBtn from "@/app/_Component/ProductCard/AddCartBtn";
 import ProductSlider from "@/app/_Component/ProductSlider/ProductSlider";
 import React from "react";
 import { productItem } from "../../../types/productsDetails.type";
+import HeroStars from "@/app/_Component/ProductCard/StarsIcon";
 
 interface DetailsCardProps {
   product: productItem | null;
@@ -28,10 +29,10 @@ export default function DetailsCard({ product }: DetailsCardProps) {
 
           <div className="flex justify-between items-center my-5">
             <span>{product.price} Egp</span>
-            <span>
-              <i className="rating-color fa-solid fa-star"></i>
-              {product.ratingsAverage}
-            </span>
+            <div className="flex">
+             <span> <HeroStars/></span>
+            <span>{product.ratingsAverage}</span>
+            </div>
           </div>
 
           <AddCartBtn id={product._id} />

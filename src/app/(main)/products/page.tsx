@@ -5,6 +5,7 @@ import { product, ProductData } from "../../../types/products.type";
 import { Suspense } from "react";
 import { HomeLoading } from "@/app/_Component/HomeLoading/HomeLoading";
 import ProductCard from "@/app/_Component/ProductCard/ProductCard";
+import PhotoStatic from "@/app/_Component/ProductCard/PhotoStatic";
 
 export default async function Home() {
 
@@ -17,8 +18,8 @@ export default async function Home() {
   return (
     <div>
       <MainSlider/>
-    <h1> Welcome page </h1>
-   <div className="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-12 mt-5 ">
+      <PhotoStatic/>
+   <div className="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-5 p-10 mt-5 py-2 ">
     <Suspense fallback={<HomeLoading/>} >
 
      {

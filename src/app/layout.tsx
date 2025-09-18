@@ -8,6 +8,7 @@ import "./globals.css";
 import Navbar from "./_Component/Navbar/Navbar";
 import UserProvider from "../UserProvider";
 import CountProvider from "../CountProvider";
+import Footer from "./_Component/Footer/Footer";
 
 
 
@@ -40,6 +41,7 @@ export default function RootLayout({
         {children}
         </main>
         <Toaster/>
+        <Footer/>
 
       </CountProvider>
 

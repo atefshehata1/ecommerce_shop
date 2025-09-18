@@ -62,9 +62,9 @@ export default function ResetPassword() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-purple-900 to-pink-600">
+    <div className="flex items-center justify-center min-h-screen -translate-y-20">
       <div className="bg-white/90 backdrop-blur-md p-10 rounded-2xl shadow-lg w-[400px]">
-        <h2 className="text-2xl font-bold mb-2 text-purple-900">Reset Password</h2>
+        <h2 className="text-2xl font-bold mb-2">Reset Password</h2>
         <p className="text-gray-500 mb-6">Enter your email and new password</p>
 
         <Form {...ResetPassword_Form}>
@@ -103,7 +103,7 @@ export default function ResetPassword() {
             {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full cursor-pointer bg-gradient-to-r from-purple-800 to-pink-600 text-white font-semibold rounded-full"
+              className="w-full cursor-pointer text-white font-semibold rounded-full"
               disabled={loading}
             >
               {loading ? "Resetting..." : "Reset Password"}

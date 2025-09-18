@@ -82,11 +82,11 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <div className="w-full flex items-center justify-center bg-gradient-to-b from-purple-900 to-pink-600">
+    <div className="flex min-h-screen space-y-8">
+      <div className="w-full flex items-center justify-center ">
         <div className="bg-white/90 w-full max-w-md p-8 rounded-2xl shadow-2xl">
           {/* Title */}
-          <h2 className="text-3xl font-extrabold mb-6 text-center text-pink-700">
+          <h2 className="text-3xl font-extrabold mb-6 text-center">
             Welcome Back 👋
           </h2>
 
@@ -102,7 +102,7 @@ export default function Login() {
                     <FormControl>
                       <Input
                         placeholder="osama@gmail.com"
-                        className="rounded-full border-gray-300 focus:border-pink-500 focus:ring-pink-500"
+                        className="rounded-full border-gray-300"
                         {...field}
                       />
                     </FormControl>
@@ -122,7 +122,7 @@ export default function Login() {
                       <Input
                         type="password"
                         placeholder="Atef2025#"
-                        className="rounded-full border-gray-300 focus:border-pink-500 focus:ring-pink-500"
+                        className="rounded-full border-gray-300"
                         {...field}
                       />
                     </FormControl>
@@ -133,10 +133,10 @@ export default function Login() {
 
               {/* Links */}
               <div className="flex justify-between items-center my-2 text-sm">
-                <Link href='/forgetPassword' className="text-pink-600 font-medium hover:underline">
+                <Link href='/forgetPassword' className=" font-medium hover:underline">
                   Forgot Password?
                 </Link>
-                <Link href='/register' className="text-pink-600 font-medium hover:underline">
+                <Link href='/register' className=" font-medium hover:underline">
                   Sign Up
                 </Link>
               </div>
@@ -144,7 +144,7 @@ export default function Login() {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full cursor-pointer bg-purple-800 hover:bg-purple-900 text-white font-semibold py-2 rounded-full shadow-lg transition"
+                className="w-full cursor-pointer text-white font-semibold py-2 rounded-full shadow-lg transition"
                 disabled={loading}
               >
                 {loading ? "Logging in..." : "Login"}

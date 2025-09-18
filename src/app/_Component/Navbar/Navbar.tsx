@@ -44,16 +44,15 @@ export default function Navbar() {
   }
 
   return (
-    <NavigationMenu
-      viewport={false}
-      className="max-w-full p-4 shadow-2xl justify-between "
-    >
+    <NavigationMenu viewport={false} className="max-w-full p-3 shadow-md justify-between bg-gray-200  ">
+
       {/* Logo */}
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink
             asChild
-            className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent`}
+            className="!bg-transparent rounded-full hover:!text-black focus:!bg-gray-100"
+           
           >
             <Link href={"/"}>
             <Image
@@ -62,6 +61,7 @@ export default function Navbar() {
             width={150} 
             height={50} 
             className="object-contain"
+            
           />
 
             </Link>
@@ -77,7 +77,7 @@ export default function Navbar() {
       <NavigationMenuItem key={item.path}>
         <NavigationMenuLink
           asChild
-          className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent`}
+         
         >
           <Link href={item.path}>{item.content}</Link>
         </NavigationMenuLink>
@@ -87,7 +87,7 @@ export default function Navbar() {
     <NavigationMenuItem key={item.path}>
       <NavigationMenuLink
         asChild
-        className={`${navigationMenuTriggerStyle()}bg-transparent hover:bg-transparent`}
+       
       >
         <Link href={item.path}>{item.content}</Link>
       </NavigationMenuLink>
@@ -101,8 +101,8 @@ export default function Navbar() {
   {/* icon user */}
   <NavigationMenuList className="list-none">
     <DropdownMenu>
-      <DropdownMenuTrigger className="outline-0 rounded-full bg-gray-200 p-2 hover:bg-gray-300 transition">
-        <UserIcon className="w-5 h-5 text-gray-700" />
+      <DropdownMenuTrigger className="outline-0 rounded-full  p-2 hover:bg-gray-400 cursor-pointer transition">
+        <UserIcon className="w-6 h-6 text-black" />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
@@ -148,25 +148,24 @@ export default function Navbar() {
     </DropdownMenu>
   </NavigationMenuList>
 
-  {/* cart static */}
-  {status === "authenticated" && (
-    <NavigationMenuItem className="list-none">
-      <NavigationMenuLink
-        asChild
-        className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent`}
-      >
-        <Link href="/cart" className="relative">
-          <ShoppingCartIcon className="size-9" />
-          <span className="absolute -top-1 -right-0 bg-black text-white w-5 h-5 rounded-full flex justify-center items-center">
-            {count}
-          </span>
-        </Link>
-      </NavigationMenuLink>
-    </NavigationMenuItem>
-  )}
+ {/* cart static */}
+{status === "authenticated" && (
+  <NavigationMenuItem className="list-none">
+    <NavigationMenuLink
+      asChild
+      className="!bg-transparent hover:!bg-gray-400 rounded-full hover:!text-black focus:!bg-gray-500"
+    >
+      <Link href="/cart" className="relative text-black hover:text-black focus:text-black ">
+        <ShoppingCartIcon className="size-6" />
+        <span className="absolute -top-2 -right-0.5 bg-black text-white w-5 h-5 rounded-full flex justify-center items-center">
+          {count}
+        </span>
+      </Link>
+    </NavigationMenuLink>
+  </NavigationMenuItem>
+)}
+
       </div>
-
-
 
     </NavigationMenu>
   )
