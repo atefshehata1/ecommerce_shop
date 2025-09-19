@@ -43,13 +43,16 @@ export default function ProductCard({ product }: { product: product }) {
         </CardContent>
 
         {/* Footer */}
-        <CardFooter className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 px-2 sm:px-4">
-          <span className="text-sm sm:text-base font-bold">{price} Egp</span>
-          <div className="flex items-center gap-1 text-xs sm:text-sm">
-            <HeroStars />
-            <span>{ratingsAverage}</span>
-          </div>
+       <CardFooter className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 px-2 sm:px-4">
+      <span className="text-sm sm:text-base font-bold">{price} Egp</span>
+
+      {/* Rating section */}
+      <div className="flex flex-wrap items-center gap-1 text-xs sm:text-sm max-w-full">
+        <HeroStars />
+        <span className="whitespace-nowrap">{ratingsAverage}</span>
+      </div>
         </CardFooter>
+
       </Link>
 
       {/* Buttons */}
