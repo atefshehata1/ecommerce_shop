@@ -36,8 +36,7 @@ export default function OrdersPage({ cartId }: { cartId: string }) {
 
     fetchOrders()
   }, [])
-
-  // دالة الدفع كاش
+    // Cash payment function
   const handleCashOrder = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
@@ -46,7 +45,7 @@ export default function OrdersPage({ cartId }: { cartId: string }) {
 
       toast.success(`✅ Order Created! Order ID: ${order.data._id}`, { duration: 3000 })
 
-      // إضافة الأوردر الجديد لكل الأوردرز و أوردرز اليوزر
+      // Add the new order to all orders and user orders
       setAllOrders(prev => [order.data, ...prev])
       setUserOrders(prev => [order.data, ...prev])
 
@@ -65,7 +64,7 @@ export default function OrdersPage({ cartId }: { cartId: string }) {
     }
   }
 
-  // دالة الدفع Visa
+  // Request Visa
   const handleVisaOrder = async () => {
     try {
       setLoading(true)
@@ -92,46 +91,60 @@ export default function OrdersPage({ cartId }: { cartId: string }) {
 
   if (loading) return <Loading/>
 
-  return (
-    <div>
-      <h2 className="text-xl font-bold text-center mb-4">All Orders</h2>
+ return (
+  <div className="px-4">
+    <h2 className="text-2xl font-bold text-center mb-6">All Orders</h2>
 
-      <div className="flex justify-center gap-2 mb-4">
-        <Button onClick={handleCashOrder} className="mx-3">Cash</Button>
-        <Button onClick={handleVisaOrder} >Visa</Button>
-      </div>
-
-      <h3 className="text-lg font-semibold text-center mt-6 mb-2">User Orders</h3>
-      {userOrders.length === 0 ? (
-        <p className="text-center mb-4">No user orders found.</p>
-      ) : (
-        <ul className="mb-6 flex justify-center items-center   gap-3 flex-wrap ">
-          {userOrders.map(order => (
-            <li key={order._id} className="border p-2 my-2 w-1/3 flex justify-center items-center  gap-3 rounded">
-              <p><strong>Order ID:</strong> {order._id}</p>
-              <p><strong>Total:</strong> {order.totalOrderPrice} EGP</p>
-              <p><strong>Payment:</strong> {order.paymentMethodType}</p>
-              <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <h3 className="text-lg font-semibold mt-10 text-center  mb-2">All Orders</h3>
-      {allOrders.length === 0 ? (
-        <p className="text-center mb-4">No orders found.</p>
-      ) : (
-        <ul className=" flex justify-center items-center  gap-3 flex-wrap">
-          {allOrders.map(order => (
-            <li key={order._id} className="border p-2 my-2 rounded">
-              <p><strong>Order ID:</strong> {order._id}</p>
-              <p><strong>Total:</strong> {order.totalOrderPrice} EGP</p>
-              <p><strong>Payment:</strong> {order.paymentMethodType}</p>
-              <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    {/* أزرار الدفع */}
+    <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+      <Button onClick={handleCashOrder} className="w-full sm:w-auto">
+        Cash
+      </Button>
+      <Button onClick={handleVisaOrder} className="w-full sm:w-auto">
+        Visa
+      </Button>
     </div>
-  )
+
+    {/* User Orders */}
+    <h3 className="text-lg font-semibold text-center mt-8 mb-3">User Orders</h3>
+    {userOrders.length === 0 ? (
+      <p className="text-center mb-4">No user orders found.</p>
+    ) : (
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        {userOrders.map(order => (
+          <li
+            key={order._id}
+            className="border p-4 rounded-lg shadow-sm bg-white"
+          >
+            <p><strong>Order ID:</strong> {order._id}</p>
+            <p><strong>Total:</strong> {order.totalOrderPrice} EGP</p>
+            <p><strong>Payment:</strong> {order.paymentMethodType}</p>
+            <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {/* All Orders */}
+    <h3 className="text-lg font-semibold text-center mt-10 mb-3">All Orders</h3>
+    {allOrders.length === 0 ? (
+      <p className="text-center mb-4">No orders found.</p>
+    ) : (
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {allOrders.map(order => (
+          <li
+            key={order._id}
+            className="border p-4 rounded-lg shadow-sm bg-white"
+          >
+            <p><strong>Order ID:</strong> {order._id}</p>
+            <p><strong>Total:</strong> {order.totalOrderPrice} EGP</p>
+            <p><strong>Payment:</strong> {order.paymentMethodType}</p>
+            <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+)
+
 }

@@ -4,7 +4,7 @@
 import getUserToken from "../getUserToken"
 import { CartData } from "../types/cartData"
 
-// ✅ دالة جلب بيانات الكارت
+ // Function to retrieve card data
 export async function getCartData() {
   const token = await getUserToken()
   if (!token) throw new Error("token undefined")
@@ -22,8 +22,7 @@ export async function getCartData() {
 
   return data
 }
-
-// ✅ إضافة منتج للكارت
+// ✅ Add a product to the card
 export async function AddCartToBtn(id: string) {
   const token = await getUserToken()
   if (!token) throw new Error("token undefined")
@@ -36,8 +35,7 @@ export async function AddCartToBtn(id: string) {
   const data = await res.json()
   return data
 }
-
-// ✅ حذف منتج من الكارت
+// ✅ Delete a product from the card
 export async function RemoveProductToTrash(id: string) {
   const token = await getUserToken()
   if (!token) throw new Error("token undefined")
@@ -49,8 +47,7 @@ export async function RemoveProductToTrash(id: string) {
   const data = await res.json()
   return data
 }
-
-// ✅ مسح كل المنتجات
+// ✅ Clear all products
 export async function ClearProducts() {
   const token = await getUserToken()
   if (!token) throw new Error("token undefined")
@@ -62,8 +59,7 @@ export async function ClearProducts() {
   const data = await res.json()
   return data
 }
-
-// ✅ تحديث كمية منتج
+// ✅ Update product quantity
 export async function UpdateQuantity(count: number, id: string) {
   const token = await getUserToken()
   if (!token) throw new Error("token undefined")
@@ -76,8 +72,7 @@ export async function UpdateQuantity(count: number, id: string) {
   const data = await res.json()
   return data
 }
-
-// ✅ طلب كاش
+// ✅ Request cash
 export async function CashOrder(id: string, shippingAddress: { details: string; phone: string; city: string }) {
   const token = await getUserToken()
   if (!token) throw new Error("token undefined")
@@ -91,14 +86,16 @@ export async function CashOrder(id: string, shippingAddress: { details: string; 
   const data = await res.json()
   return data
 }
-
-// ✅ طلب فيزا
+// ✅ Request Visa 
 export async function VisaOrder(id: string, shippingAddress: { details: string; phone: string; city: string }) {
   const token = await getUserToken()
   if (!token) throw new Error("token undefined")
 
+    console.log("🌍 Redirect URL:", process.env.NEXT_PUBLIC_URL)
+
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/orders/checkout-session/${id}?url=${process.env.NEXT_URL}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/orders/checkout-session/${id}?url=${process.env.NEXT_PUBLIC_URL}`,
     {
       method: "POST",
       headers: { token: token, "content-type": "application/json" },
@@ -107,10 +104,10 @@ export async function VisaOrder(id: string, shippingAddress: { details: string; 
   )
 
   const data = await res.json()
+  console.log("VisaOrder response:", data)
   return data
 }
-
-// ✅ جلب كل الأوردرز
+// ✅ Get all orders
 export async function getAllOrders() {
   const token = await getUserToken()
   if (!token) throw new Error("token undefined")
@@ -124,8 +121,7 @@ export async function getAllOrders() {
   const data = await res.json()
   return data
 }
-
-// ✅ جلب أوردرات المستخدم
+// ✅ Get user orders
 export async function getUserOrders() {
   if (typeof window === "undefined") return [] // لو على السيرفر متعملش fetch على localStorage
 

@@ -46,28 +46,25 @@ export default function Navbar() {
   return (
     <NavigationMenu viewport={false} className="max-w-full p-3 shadow-md justify-between bg-gray-200  ">
 
-      {/* Logo */}
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuLink
-            asChild
-            className="!bg-transparent rounded-full hover:!text-black focus:!bg-gray-100"
-           
-          >
-            <Link href={"/"}>
-            <Image
-            src="/images/freshcart-logo.svg"
-            alt="Logo"
-            width={150} 
-            height={50} 
-            className="object-contain"
-            
-          />
+    {/* Logo */}
+<NavigationMenuList>
+  <NavigationMenuItem>
+    <Link href={"/"} className="flex items-center gap-2 px-2 py-1 rounded-md hover:text-black">
+      <Image
+        src="/images/Logo.png"
+        alt="Logo"
+        width={40}
+        height={40}
+        className="object-contain"
+      />
+      <h1 className="text-2xl font-bold tracking-wide">
+        Shop <span className="text-blue-600">Mart</span>
+      </h1>
+    </Link>
+  </NavigationMenuItem>
+</NavigationMenuList>
 
-            </Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
+
 
       {/* Menu Items */}
       <NavigationMenuList>
