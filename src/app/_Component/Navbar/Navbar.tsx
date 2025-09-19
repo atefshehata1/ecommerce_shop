@@ -132,7 +132,7 @@ export default function Navbar() {
           {status === "authenticated" && (
             <Link href="/cart" className="relative">
               <ShoppingCartIcon className="w-6 h-6" />
-              <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex justify-center items-center">
+              <span className="absolute -top-4 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex justify-center items-center">
                 {count}
               </span>
             </Link>
