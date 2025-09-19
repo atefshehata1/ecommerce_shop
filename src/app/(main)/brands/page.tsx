@@ -19,30 +19,33 @@ export default async function Brands() {
   const brandsData: DataBrands[] = data.data
 
   return (
-    <div className="flex flex-wrap">
+    // Responsive grid for brands
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
       {brandsData.map((brand) => (
-        <div key={brand._id} className="w-1/4 p-7">
-          <Link href={`/brands/${brand._id}`}>
-            <Card className="cursor-pointer shadow-md hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle>{brand.name}</CardTitle>
-                <CardDescription>Slug: {brand.slug}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Image
-                  src={brand.image}
-                  alt={brand.name}
-                  width={300}
-                  height={350}
-                  className="rounded-md w-full h-[200px] object-cover"
-                />
-              </CardContent>
-              <CardFooter>
-                <p>Created: {new Date(brand.updatedAt).toLocaleDateString()}</p>
-              </CardFooter>
-            </Card>
-          </Link>
-        </div>
+        <Link key={brand._id} href={`/brands/${brand._id}`}>
+          <Card className="cursor-pointer shadow-md hover:shadow-lg transition-shadow h-full">
+            <CardHeader>
+              <CardTitle className="text-base sm:text-lg">{brand.name}</CardTitle>
+              <CardDescription className="text-sm text-gray-500">
+                Slug: {brand.slug}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Image
+                src={brand.image}
+                alt={brand.name}
+                width={300}
+                height={350}
+                className="rounded-md w-full h-40 sm:h-48 md:h-56 object-cover"
+              />
+            </CardContent>
+            <CardFooter>
+              <p className="text-xs sm:text-sm text-gray-600">
+                Created: {new Date(brand.updatedAt).toLocaleDateString()}
+              </p>
+            </CardFooter>
+          </Card>
+        </Link>
       ))}
     </div>
   )
